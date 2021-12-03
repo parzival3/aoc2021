@@ -61,7 +61,8 @@
 (defun aoc-day2-solution-2 (input)
   "Calc the sulution based on the INPUT."
   (let ((sol (seq-reduce #'aoc-day2-sum-input-with-aim (mapcar #'aoc-day2-remap-string input) '(0 0 0))))
-    (* (caddr sol) (caddr sol))))
+    (* (cadr sol) (caddr sol))))
 
+(aoc-day2-solution-2 aoc-day2-input)
 (provide 'aoc)
 ;;; aoc.el ends here
