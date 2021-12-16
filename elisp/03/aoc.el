@@ -19,6 +19,12 @@
 ;;
 ;;; Code:
 ;;;
+;;;
+(defvar aoc-lib "../aoc-lib.el")
+
+(load-file
+  (expand-file-name aoc-lib
+                    (file-name-directory (buffer-file-name))))
 
 (defun aoc-list-of-char-to-list-of-numbers (list-of-chars)
   "Convert a LIST-OF-CHARS to a list of numbers."
@@ -30,11 +36,7 @@
             (aoc-list-of-char-to-list-of-numbers (string-to-list str)))
           list-of-strings))
 
-(defun aoc-read-file-to-list (file-name)
-  "Retruns a list of numbers contained in FILE-NAME."
-  (with-temp-buffer
-    (insert-file-contents-literally file-name)
-    (split-string (buffer-substring-no-properties (point-min) (point-max)) "\n" t)))
+
 
 (defun aoc-sum-column-wise (prev next)
   "Sum column wise PREV and NEXT and return the resulting list.
@@ -50,13 +52,8 @@ The list must have the same size and they must contain only numbers."
   "Rurns 1 or 0 if VALUE is grather than half of TO-HALF-IT."
   (> value (/ to-half-it 2)))
 
-(defun aoc-bool-to-string (bool-value)
-  "Convert a BOOL-VALUE to a string."
-  (if bool-value "1" "0"))
 
-(defun aoc-bool-to-int (bool-value)
-  "Convert a BOOL-VALUE to a int."
-  (if bool-value 1 0))
+
 
 (defun aoc-calculate-gamma (byte-array)
   "Calculate the gamma value from the BYTE-ARRAY."
@@ -70,7 +67,7 @@ The list must have the same size and they must contain only numbers."
 
 (defun aoc--boolean-list-to-byte-number (boolean-list)
   "Return the byte value from a BOOLEAN-LIST."
-  (string-to-number (mapconcat #'aoc-bool-to-string boolean-list "") 2))
+  (string-to-number (mapconcat #'aoc-lib-bool-string boolean-list "") 2))
 
 (defun aoc--number-list-to-byte-number (number-list)
   "Return the byte value from a NUMBER-LIST."
@@ -78,7 +75,7 @@ The list must have the same size and they must contain only numbers."
 
 (defun aoc--boolean-list-to-number-list (boolean-list)
   "Return the list of ints from a BOOLEAN-LIST."
-  (mapcar #'aoc-bool-to-int boolean-list))
+  (mapcar #'aoc-lib-bool-int boolean-list))
 
 (defun aoc--pred (value pos input)
   (eq (nth pos input) value))
